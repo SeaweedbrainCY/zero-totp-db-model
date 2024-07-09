@@ -8,7 +8,7 @@ LONG_DESCRIPTION = 'The database shared model used accross the zero-totp project
 # Setting up
 setup(
        # the name must match the folder name 'verysimplemodule'
-        name="zero-totp-db-model", 
+        name="zero_totp_db_model", 
         version=VERSION,
         author="Seaweedbrain",
         author_email="developer@zero-totp.com",
