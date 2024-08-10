@@ -89,4 +89,4 @@ class Notifications(db.Model):
     timestamp = db.Column(db.Integer, nullable=False)
     enabled = db.Column(db.Boolean, nullable=False, default=True)
     expiry = db.Column(db.Integer, nullable=True, default=None)
-    authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=True)
+    authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=False)
