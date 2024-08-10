@@ -86,7 +86,7 @@ class Notifications(db.Model):
     __tablename__ = "notifications"
     id = db.Column(db.String(36), primary_key=True, nullable=False)
     message = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.Integer, nullable=False)
+    timestamp = db.Column(db.String(20), nullable=False)
     enabled = db.Column(db.Boolean, nullable=False, default=True)
-    expiry = db.Column(db.Integer, nullable=True, default=None)
+    expiry = db.Column(db.String(20), nullable=True, default=None)
     authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=False)
