@@ -84,7 +84,7 @@ class RateLimiting(db.Model):
     
 class Notifications(db.Model):
     __tablename__ = "notifications"
-    id = db.Column(db.String(36), primary_key=True, autoincrement=True, nullable=False)
+    id = db.Column(db.String(36), primary_key=True, nullable=False)
     message = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.Integer, nullable=False)
     enabled = db.Column(db.Boolean, nullable=False, default=True)
