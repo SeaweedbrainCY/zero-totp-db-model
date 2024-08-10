@@ -82,3 +82,11 @@ class RateLimiting(db.Model):
     action_type = db.Column(db.String(256), nullable=False) # send_verification_email, failed_login 
     timestamp = db.Column(db.DateTime, nullable=False)
     
+class Notifications(db.Model):
+    __tablename__ = "rate_limiting"
+    id = db.Column(db.String(36), primary_key=True, autoincrement=True, nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.Integer, nullable=False)
+    enabled = db.Column(db.Boolean, nullable=False, default=True)
+    expiry = db.Column(db.Integer, nullable=True, default=None)
+    authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=True)
