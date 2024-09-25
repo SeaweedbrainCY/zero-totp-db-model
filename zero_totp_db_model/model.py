@@ -90,3 +90,12 @@ class Notifications(db.Model):
     enabled = db.Column(db.Boolean, nullable=False, default=True)
     expiry = db.Column(db.String(20), nullable=True, default=None)
     authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=False)
+
+class LoginLogs(db.Model):
+    __tablename__ = "notifications"
+    id = db.Column(db.String(36), primary_key=True, nullable=False)
+    source_ip = db.Column(db.String(40), nullable=False)
+    timestamp = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id",  ondelete='CASCADE'), nullable=True)
+    outcome =  db.Column(db.String(256), nullable=True)
+    status = db.Column(db.Boolean, nullable=False, default=False)
