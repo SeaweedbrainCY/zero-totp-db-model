@@ -92,7 +92,7 @@ class Notifications(db.Model):
     authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=False)
 
 class LoginLogs(db.Model):
-    __tablename__ = "notifications"
+    __tablename__ = "login_logs"
     id = db.Column(db.String(36), primary_key=True, nullable=False)
     source_ip = db.Column(db.String(40), nullable=False)
     timestamp = db.Column(db.String(20), nullable=False)
