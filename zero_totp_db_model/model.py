@@ -66,6 +66,7 @@ class Preferences(db.Model):
     derivation_iteration = db.Column(db.Integer, nullable=True, default=700000)
     minimum_backup_kept = db.Column(db.Integer, nullable=True, default=20)
     backup_lifetime = db.Column(db.Integer, nullable=True, default=30)
+    vault_autolock_delay_min = db.Column(db.Integer, nullable=True, default=10)
 
 class EmailVerificationToken(db.Model):
     __tablename__ = "email_verification_token"
