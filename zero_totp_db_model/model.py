@@ -92,3 +92,13 @@ class Notifications(db.Model):
     enabled = db.Column(db.Boolean, nullable=False, default=True)
     expiry = db.Column(db.String(20), nullable=True, default=None)
     authenticated_user_only =  db.Column(db.Boolean, nullable=False, default=False)
+
+
+class RefreshToken(db.Model):
+    __tablename__ = "refresh_token"
+    id = db.Column(db.String(36), primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
+    hashed_token = db.Column(db.String(64), nullable=False)
+    expiration = db.Column(db.String(20), nullable=False)
+    jti = db.Column(db.String(36), nullable=False)
+    revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
