@@ -100,5 +100,13 @@ class RefreshToken(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
     hashed_token = db.Column(db.String(64), nullable=False)
     expiration = db.Column(db.String(20), nullable=False)
-    jti = db.Column(db.String(36), nullable=False)
+    session_token_id = db.Column(db.String(36), nullable=False)
+    revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
+
+class SessionToken(db.Model):
+    __tablename__ = "session_token"
+    id = db.Column(db.String(36), primary_key=True, nullable=False)
+    hashed_token = db.Column(db.String(64), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
+    expiration = db.Column(db.String(20), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
