@@ -8,9 +8,9 @@ if db is None:
 class User(db.Model):
     __tablename__ = "User"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    mail = db.Column(db.String(256), nullable=False)
+    mail = db.Column(db.String(256), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
-    username = db.Column(db.String(256), nullable=False)
+    username = db.Column(db.String(256), nullable=False, unique=True)
     derivedKeySalt = db.Column(db.String(256), nullable=False)
     isVerified = db.Column(db.Boolean, nullable=False)
     passphraseSalt = db.Column(db.String(256), nullable=False)
@@ -92,7 +92,7 @@ class RefreshToken(db.Model):
     __tablename__ = "refresh_token"
     id = db.Column(db.String(36), primary_key=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
-    hashed_token = db.Column(db.String(64), nullable=False)
+    hashed_token = db.Column(db.String(64), nullable=False, unique=True)
     expiration = db.Column(db.String(20), nullable=False)
     session_token_id = db.Column(db.String(36), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
@@ -100,7 +100,7 @@ class RefreshToken(db.Model):
 class SessionToken(db.Model):
     __tablename__ = "session_token"
     id = db.Column(db.String(36), primary_key=True, nullable=False)
-    token = db.Column(db.String(36), nullable=False)
+    token = db.Column(db.String(36), nullable=False, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
     expiration = db.Column(db.String(20), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
