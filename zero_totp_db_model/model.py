@@ -104,3 +104,11 @@ class SessionToken(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
     expiration = db.Column(db.String(20), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
+
+
+class BackupConfiguration(db.Model):
+    __tablename__ = "backup_configuration"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
+    backup_max_age_days = db.Column(db.Integer, nullable=False, default=30)
+    backup_minimum_count = db.Column(db.Integer, nullable=False, default=20)
