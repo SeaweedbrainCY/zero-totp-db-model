@@ -1,5 +1,6 @@
 
 from .model_init import db
+from sqlalchemy.orm import relationship
 
 if db is None:
     raise Exception("Database not initialized. Please call init_db(db) before importing models")
@@ -97,6 +98,9 @@ class RefreshToken(db.Model):
     session_token_id = db.Column(db.String(36), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
 
+    session_id = db.Column(db.String(36), db.ForeignKey("session.id"), nullable=False)
+    session = relationship("Session", back_populates="refresh_tokens")
+
 class SessionToken(db.Model):
     __tablename__ = "session_token"
     id = db.Column(db.String(36), primary_key=True, nullable=False)
@@ -104,6 +108,31 @@ class SessionToken(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
     expiration = db.Column(db.String(20), nullable=False)
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
+
+    # Relationship to Session
+    session_id = db.Column(db.String(36), db.ForeignKey("session.id"), nullable=False)
+    session = relationship("Session", back_populates="access_tokens")
+
+
+class Session(db.Model):
+    __tablename__ = "session"
+    id = db.Column(db.String(36), primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id"), nullable=False)
+
+    # Metadata about the session is encrypted by the user.
+    encrypted_user_agent = db.Column(db.String(512), nullable=True)
+    encrypted_device_name = db.Column(db.String(256), nullable=True)
+    encrypted_platform = db.Column(db.String(256), nullable=True)
+
+    ip_address = db.Column(db.String(45), nullable=False)
+    created_at = db.Column(db.String(20), nullable=False)
+    last_active_at = db.Column(db.String(20), nullable=False)
+    expiration_timestamp = db.Column(db.String(20), nullable=False)
+    is_revoked = db.Column(db.Boolean, nullable=False, default=False)
+
+    refresh_tokens = relationship("RefreshToken", back_populates="session", cascade="all, delete-orphan")
+    access_tokens = relationship("SessionToken", back_populates="session", cascade="all, delete-orphan")
+
 
 
 class BackupConfiguration(db.Model):
