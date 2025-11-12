@@ -124,7 +124,7 @@ class Session(db.Model):
     encrypted_device_name = db.Column(db.String(256), nullable=True)
     encrypted_platform = db.Column(db.String(256), nullable=True)
 
-    ip_address = db.Column(db.String(45), nullable=False)
+    ip_address = db.Column(db.String(45), nullable=True)
     created_at = db.Column(db.String(20), nullable=False)
     last_active_at = db.Column(db.String(20), nullable=False)
     expiration_timestamp = db.Column(db.String(20), nullable=False)
