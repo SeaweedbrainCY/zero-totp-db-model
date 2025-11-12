@@ -128,7 +128,7 @@ class Session(db.Model):
     created_at = db.Column(db.String(20), nullable=False)
     last_active_at = db.Column(db.String(20), nullable=False)
     expiration_timestamp = db.Column(db.String(20), nullable=False)
-    is_revoked = db.Column(db.Boolean, nullable=False, default=False)
+    revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
 
     refresh_tokens = relationship("RefreshToken", back_populates="session", cascade="all, delete-orphan")
     access_tokens = relationship("SessionToken", back_populates="session", cascade="all, delete-orphan")
