@@ -111,7 +111,7 @@ class SessionToken(db.Model):
 
     # Relationship to Session
     session_id = db.Column(db.String(36), db.ForeignKey("session.id", name="fk_session_token_session_id"), nullable=False)
-    session = relationship("Session", back_populates="access_tokens")
+    session = relationship("Session", back_populates="session_tokens")
 
 
 class Session(db.Model):
@@ -131,7 +131,7 @@ class Session(db.Model):
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
 
     refresh_tokens = relationship("RefreshToken", back_populates="session", cascade="all, delete-orphan")
-    access_tokens = relationship("SessionToken", back_populates="session", cascade="all, delete-orphan")
+    session_tokens = relationship("SessionToken", back_populates="session", cascade="all, delete-orphan")
 
 
 
