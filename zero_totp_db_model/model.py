@@ -99,7 +99,6 @@ class RefreshToken(db.Model):
     revoke_timestamp = db.Column(db.String(20), nullable=True, default=None)
 
     session_id = db.Column(db.String(36), db.ForeignKey("session.id", name="fk_refresh_token_session_id"), nullable=False)
-    session = relationship("Session", back_populates="refresh_tokens")
 
 class SessionToken(db.Model):
     __tablename__ = "session_token"
@@ -111,7 +110,6 @@ class SessionToken(db.Model):
 
     # Relationship to Session
     session_id = db.Column(db.String(36), db.ForeignKey("session.id", name="fk_session_token_session_id"), nullable=False)
-    session = relationship("Session", back_populates="session_tokens")
 
 
 class Session(db.Model):
