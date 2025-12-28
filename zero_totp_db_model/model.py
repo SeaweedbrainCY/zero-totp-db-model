@@ -26,7 +26,7 @@ class User(db.Model):
     google_drive_integration = relationship("GoogleDriveIntegration", cascade="all, delete-orphan", back_populates="user")
     preferences = relationship("Preferences", cascade="all, delete-orphan", back_populates="user")
     email_verification_token = relationship("EmailVerificationToken", cascade="all, delete-orphan", back_populates="user")
-    rate_limiting = relationship("RateLimiting", cascade="all, delete-orphan", back_populates="user")
+    rate_limiting = relationship("RateLimiting", cascade="all, delete-orphan")
     refresh_tokens = relationship("RefreshToken", cascade="all, delete-orphan", back_populates="user")
     session_tokens = relationship("SessionToken", cascade="all, delete-orphan", back_populates="user")
     sessions = relationship("Session", cascade="all, delete-orphan", back_populates="user")
