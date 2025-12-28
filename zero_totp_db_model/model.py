@@ -20,7 +20,7 @@ class User(db.Model):
     isBlocked =  db.Column(db.Boolean, nullable=False, default=False)
     last_login_date = db.Column(db.String(20), nullable=True)
 
-    zke_encryption_key = relationship("ZKE_encryption_key", cascade="all, delete-orphan", back_populates="user")
+    zke_encryption_key = relationship("ZKE_encryption_key", cascade="all, delete-orphan", back_populates="user", passive_deletes=True)
     totp_secrets = relationship("TOTP_secret", cascade="all, delete-orphan" , back_populates="user")
     oauth_tokens = relationship("Oauth_tokens", cascade="all, delete-orphan", back_populates="user")
     google_drive_integration = relationship("GoogleDriveIntegration", cascade="all, delete-orphan", back_populates="user")
@@ -37,7 +37,7 @@ class User(db.Model):
 class ZKE_encryption_key(db.Model):
     __tablename__ = "ZKE_encryption_key"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("User.id", name="fk_zke_encryption_key_user_id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("User.id", name="fk_zke_encryption_key_user_id", ondelete="CASCADE"), nullable=False)
     ZKE_key = db.Column(db.String(256), nullable=False)
 
     user = relationship("User", back_populates="zke_encryption_key")
